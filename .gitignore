@@ -1,0 +1,17 @@
+# Ignore log files
+logs/
+*.log
+
+# Ignore vendor directory
+/vendor/
+
+# Ignore compiled binaries
+*.exe
+*.out
+*.app
+
+# Ignore IDE/project files
+.idea/
+.vscode/
+*.iml
+.DS_Store
