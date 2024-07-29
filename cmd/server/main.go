@@ -1,7 +1,6 @@
 package main
 
 import (
-    "github.com/Sagn1k/pixelQR/config"
     "github.com/Sagn1k/pixelQR/internal/handlers"
     "github.com/Sagn1k/pixelQR/internal/log"
     "github.com/gofiber/fiber/v2"

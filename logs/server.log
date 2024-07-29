@@ -1,0 +1,2 @@
+{"level":"INFO","timestamp":"2024-07-29T15:28:39.737+0530","caller":"server/main.go:16","msg":"Server is running on port 3000"}
+{"level":"INFO","timestamp":"2024-07-29T15:29:09.764+0530","caller":"handlers/qr_handler.go:28","msg":"QR code generated successfully"}
