@@ -5,16 +5,22 @@ GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
 BINARY_NAME=pixelQR
-BINARY_LINUX_AMD64=$(BINARY_NAME)_linux_amd64
-BINARY_LINUX_ARM64=$(BINARY_NAME)_linux_arm64
-BINARY_MAC_AMD64=$(BINARY_NAME)_mac_amd64
-BINARY_MAC_ARM64=$(BINARY_NAME)_mac_arm64
+BUILD_DIR=./build
+BINARY_LINUX_AMD64=$(BUILD_DIR)/$(BINARY_NAME)_linux_amd64
+BINARY_LINUX_ARM64=$(BUILD_DIR)/$(BINARY_NAME)_linux_arm64
+BINARY_MAC_AMD64=$(BUILD_DIR)/$(BINARY_NAME)_mac_amd64
+BINARY_MAC_ARM64=$(BUILD_DIR)/$(BINARY_NAME)_mac_arm64
 
 # Directories
 SRC_DIR=./cmd/server
 
 # Default target executed when you type 'make'
-all: test build-linux-amd64 build-linux-arm64 build-mac-amd64 build-mac-arm64
+all: test build
+
+build: build-linux build-mac
+
+build-linux: build-linux-amd64 build-linux-arm64
+build-mac: build-mac-amd64 build-mac-arm64
 
 build-linux-amd64:
 	GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BINARY_LINUX_AMD64) $(SRC_DIR)/main.go
@@ -37,10 +43,7 @@ test:
 
 clean:
 	$(GOCLEAN)
-	rm -f $(BINARY_LINUX_AMD64)
-	rm -f $(BINARY_LINUX_ARM64)
-	rm -f $(BINARY_MAC_AMD64)
-	rm -f $(BINARY_MAC_ARM64)
+	rm -f $(BUILD_DIR)/$(BINARY_NAME)_*
 
 run: build-linux-amd64
 	./$(BINARY_LINUX_AMD64)
@@ -54,4 +57,4 @@ docker-build:
 docker-run:
 	docker run -p 3000:3000 pixelqr:latest
 
-.PHONY: all build-linux-amd64 build-linux-arm64 build-mac-amd64 build-mac-arm64 clean test run docker-build docker-run
+.PHONY: all build build-linux build-mac build-linux-amd64 build-linux-arm64 build-mac-amd64 build-mac-arm64 clean test run docker-build docker-run

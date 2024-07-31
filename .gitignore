@@ -5,6 +5,9 @@ logs/
 # Ignore vendor directory
 /vendor/
 
+# Ignore build directory
+/build/
+
 # Ignore compiled binaries
 *.exe
 *.out
