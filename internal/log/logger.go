@@ -15,7 +15,15 @@ func NewLogger() *zap.Logger {
     fileEncoder := zapcore.NewJSONEncoder(config)
     consoleEncoder := zapcore.NewConsoleEncoder(config)
 
-    logFile, _ := os.Create("logs/server.log")
+    // Ensure the logs directory exists
+    if err := os.MkdirAll("logs", os.ModePerm); err != nil {
+        panic(err)
+    }
+
+    logFile, err := os.Create("logs/server.log")
+    if err != nil {
+        panic(err)
+    }
     logWriter := zapcore.AddSync(logFile)
 
     core := zapcore.NewTee(
